@@ -1,7 +1,0 @@
-Recursive definition has a base case. Important thing about that is that it has a base case. thats the stopping condition. That says we atleast we have one word that we can define already. that we don't have to define in terms of words. And, it has the recursive case, that tells we can define a word in terms of another word. Now when we combine those two(Recursive case and Base case) well we have a definition now. 
-
-Recursive definition:
-
-So this works for things other than words, the place where you have seen most so far is been in language, we willl see in this how to  use recursive in procedures and later in data structures. 
-
-recursive definitions has two parts, It has the base case, base case, you can think of it as a starting point, Important thing about base case is its not defined interms of itself. It has to be something were we already know how to define it. For program its gonna be usually the smallest input, One of the simplest imput where we already know the answer, we don't have to do any computation to figure it out. The second part is the recursive case, and that is defined in terms of itself, But it shouldn't be defined in terms of itself exactly. It should be defined in terms of smaller version of itself, we need to progress to eventually to get to the base case.
