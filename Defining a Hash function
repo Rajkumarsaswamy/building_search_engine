@@ -1,0 +1,99 @@
+Defining a Hash function:
+
+What we want the hash function to do is take a string as its input, we will call that which takes a input as "hash_string" and it will produce an ouput a number between 0 and b-1
+
+So we want another input to our hash_string that will be our second input, is the size of the hash_table: number of buckets. What we haven't seen yet that we are gonna need for this function, the way to turn string into a number. 
+
+Ord: 
+Syntax: ord(<one letter string>) -> number
+Python provides an operation to do that, called ord. ord for ordinal, and what ord takes as input is a one letter string, and produces as its output, a number. Actual mapping between strings and numbers are actually not so important. We just want something that maps different strings to different numbers. 
+
+Chr: 
+syntax: chr(<Number>) -> <one-letter string> 
+There is an other operator that goes in the opposite direction, that takes in a number, and ouputs a one letter string corresponds to that number. 
+
+And property these functions have is their inverses, that if we take char of ordinal corresponding to any one letter string what you get is the same letter alpha. 
+
+the ouput numbers from ord are based on ASCHII in character encoding. 
+
+
+Limit of ord is, it just works on one letter string. 
+
+Other property we need hash_string function to have, the output should always be between 0 and b-1. We need it to be in that range because we are gonna use that to index the list to find the bucket where that string belongs. 
+
+So to get our outputs in the correct range, we are gonna use the modulus operator. What modulus does, it takes a number and maps it to the range, based on the remainder of that number. So, the way the modulus arithmetic is like clock, think of having a clock of 12 hr's. And the arthimetic on the clock is modulo 12. So we are to evaluate 14 % 12, what would that mean is, if we start with 0, and make 14 steps, were we end is 2. That is the same as we get reminder by dividing 14 by 12.
+
+If we print the result ord, where the input is a number. That gives us an error, and it gives us an error because, ord expects a string of length 1, but int "integer" is found. There is a function that allows to turn integer into a string, and thats the str function. That takes a number and gives back the corresponding number. 
+
+Now that we know about chr and modulo, we are ready to define a hash_string function. 
+
+Lets remember what our hash_string function should do, has fn takes two inputs, a keyword and it takes number of buckets, and its outputing a number, between 0 and buckets - 1. That gives us the position where that string belongs.   
+
+Lets define now a bad hash function, it takes two inputs, keyword and a buckets. 
+
+When seeing the function we should see if it works for all possible inputs, one that is trickiest part to think about is the boundry case. For a string thats often the empty string. If we pass in a string that has no character in it. which is a perfectly valid string. Well well then when we try index the element 0 that would be an error. We do get an error telling the string index is out of range. because we try to access a position at string 0 but there is no character at position zero in the empty string. So to understand other two reasons, i have defined a procedure, called test_hash_function, it takes three inputs: the first input is a function - we can pass around function like any other value, so what we are gonna pass in for this, is the bad_hash_String, and we are gonna pass in a list of keys, those are the keywords for the hash table, and we are gonna give the has size, that is number of buckets. 
+
+What we do in test hash function is, we are gonna keep results as a list of the number of times each bucket is used. So, initially they are all zero, and we initilize with zero times the size. And, we are gonna use, keys_used as a list of keys that have already been used. We don't wanna count a duplicate key. Then we are gonna loop through the keys, and check if the key was used already, and if the key was not used, and then we are gonna figure out by calling hast_String function where that key would has to. So if we pass in bad_hash_string, that would be the function here. And, we are calling that passing in the keyword, and the number of buckets. We are storing the result in the variable hv. And then we are increasing the value of the element at results position hv by 1. And tehn we are adding the word, to the list of keys used. 
+
+So what we will have as a result of test_hash_function is, a list where the values in that list are numbers, giving the number of times a key hashes to that bucket. 
+
+ 
+So we have seen the basic, looking at first letter doesn't work pretty well, doesn't use enough buckets, doesn't distribute the keys well. Now we are gonna think about how to make a better hash function. 
+
+We want the same property as before, The hash_string function has two inputs, a keyword and no of buckets, and the output is the hash value in the range from 0 to no of buckets -1. And the goal is for the numbers to be well distributed, so we can have any number of buckets we want and the keywords, will be spread evenly across the buckets, and every time we hash the same keyword, we get the same keyword, so we know quickly were to do. 
+
+So in order to do better than the before we were doing, we need to look at more than one letter inn the keyword. If we look only the first letter, we are not gonna do it better than having a limited no of buckets and evenly distributed. 
+
+So what we want is something thats gonna look all the letters in the keyword, and not just the first letter, and based on all the letters, we will decide appropriate buckets.
+
+We saw with the list we can use for loop concept to go through elements in the lists. 
+
+We can do the same thing with the string, going through each characters in the string, so each time we go through the loop the value assigned to variable c will be one letter string, corresponding to each character in the string in order. So first it will have value a b c and d. So this gives us way to go all the letter in the string. And if you know how to convert single character to ASCII and modulo operator, you know much better to define a hash string function. 
+
+What we wanted to do is, the output of hash_string, a function of all the characters, and we can think of that in modulo arithmatic, that if we have a circle with size of number of buckets, so the circle is gonna go, from 0 to size of b-1, what we wanna do is for each character we are gonna start with zero, and for each character in string, we are gonna go ord of that character, around the circle, and we are gonna keep going, for each character we are gonna go some distance around, the circle, the circle can be any size depending on the size of the buckets, and we are gonna keep going around the circle using modulo arithmatic for each letter. Where ever we end up is gonna be the bucket that we use. 
+
+So where we can see the difference between what you are gonna find in hash_String and bad hash_String we had before is, once we have longer string. 
+
+Our goal of hash_table is to map the keyword to the number of buckets, using the hash_string function, to a particular bucket, and that bucket will contain all of the keywords, that map to that location.   
+
+So now what we are gonna do is, try to actually write the code, we are gonna start with index that we wrote for the previous unit, and try to implement with the hash_table instead. First question is how its going to change our data structure. 
+
+This is what we had before, remember we had index. The index had a list of keywords, list of entries, and each entry was a pair, which was a keyword, and the second element of the pair was a list of the urls where that word appears. And as the same, each word in the index, has its own entry of its keywords and associated urls. This was the data structure we had last time. 
+
+The main component that we need for the hash_table is the way to represent in bucket. Here is picture of our hash_table, what we want is list, where each element in list is a bucket. What a bucket is list itself, Where each element in that list, has a key and a value.
+
+[[[<key>,[<url>,..]],[<key>,[<url>,..]],..],..] 
+
+So the first thing we need to do for implementing hash_table is, we have to figure out how to make an empty hash_table, with a simple index, its really easy. To make an empty index, we just have a empty list, there were no elements, so we could initialize the index by just initializing a empty list. And as we added elements to the list we would just add them to the empty list.   
+
+For the hash table thats not going to work, we need to do something more complicated to start with an empty hash table. And the reason is we need to start with all the buckets, so our initial value for the plain index was an empty list. And the intial value for the hash table will be empty buckets, and the reason for that is, we wanna be able to do look ups right away, we wanna be able to add elements to our hash table.
+
+We just started with an empty list, well the first time when we look up the keyword, it would say that keyword belongs to the bucket 21, we don't have a bucket for that, and we would need to find a way to figure out how to create that bucket. 
+
+And so it makes lot more sense to start with making an empty hash table, be a list of buckets we initially all the buckets are empty, and ready waiting for keywords, to be placed in them. So we need a code to create that empty hash_table.  
+
+def make_hashtable(nbuckets):
+	b = []
+	result = 0
+	while result < nbuckets:
+		b.append([])
+		result = result + 1
+	return b
+
+So to creat a empty hash table we are gonna start with initialising a varibale i to zero, we need to keep a count of the number of buckets, so we are gonna start with creating an empty table and add n buckets to table, and hence we are gonna use a while loop. 
+
+def make_hashtable(nbuckets):
+	b = []
+	for e in range(0,len(nbuckets)):
+		b.append([])
+	return b
+
+Now that we created empty hash table, next thing we have to figure out how to do lookups, as well as adds. Remember the idea for a hash table, We have a list of buckets, each bucket is a list of entries, and each entry is a key in a list of values. 
+
+Regardless of whether we wanna do lookups, and add and find a value associated with the word or we want to do add and add a new value associated with the word. 
+
+We have to find a right bucket, Find a right bucket if we are doing lookup, and we have to look through all the entries in the bucket, to find the one that matches that keyword, for doing add we also have to start by looking the right bucket, then we are gonna look through and see if that word already exists, if it doesn't exist we can add a new entry.
+
+So both of those does depend on finding a right bucket. We will do that once, and we use that for both lookup and add. 	
+
+We can define hash_table_get_bucket, it takes two inputs, hash table and a key which is the word we are looking for. And to find the bucket we are gonna using hash_string. We are gonna pass in the same word, the key, the number of buckets is the length of hashtable. So we are gonna call hash_String, passsing in the key and as second input we need length of the table. that's the number of buckets. So that will get us a number which is the index of bucket we want. To get that bucket we need to use that as the index to select that element from htable, and then we want to return. So thats all we need. 
