@@ -1,0 +1,53 @@
+What the web crawler wanted to do:
+
+We have a seed page and we assuming we know some seed page to start with. and seed page has some links on it. and we wanna able to find those links and we gonna get them to lists and we are going to follow those links. And so we will follow those links to new pages. And those new pages might also have links. And we wanna follow those links. So in order to this. We need to remember two things. We need to keep track of all the pages that we are waiting to crawl. And we will introduce a variable for crawl to do that. 	
+
+And what "to crawl" will be:
+
+- list of pages left to crawl 
+	so initially it will be just the seed page. And once we collect the links on the seed page. We will include those links as well. And once we crawl a page we don't want to keep it in "to crawl" anymore. And as we find new pages to crawl, that will be added to "to crawl" list. 
+
+Other variable we want, to keep track of all the pages we have crawled:
+
+crawled: 
+
+- list of pages crawled 
+
+There is a seed page: http://www.udacity.com/cs101x/index.html
+When we start to crawl, to crawl should be the index page: http://www.udacity.com/cs101x/index.html 
+
+We will get all the links in ['index.html'] page and that will now be added to "crawled" 
+
+And when we found on the index page there is three more links on the page. And "to crawl" after crawling the web page ['index.html'] will be the links that are inside the web page.  
+
+And next thing we wanted to do is, take one of those links and crawl it. The order actually matters a lot. Lets assume for now we will crawl the last one for first. 
+
+That will be added to "crawled" and things that are crawled will be in "crawled" page. 
+
+to crawl          crawled
+index.html        []
+
+Crawling process (first attempt)
+
+start with tocrawl = [seed]
+crawled = []
+while there are more pages tocrawl:
+   pick a page from to crawl
+   add that page to crawled 
+   add all the links targets on 
+       this page to tocrawl
+return crawled 
+
+add a tet to see if we have already crawled a page.
+
+Depth - first search 
+
+Pop is the only thing that we have seen that actually removes elements from the list and also has the property that returns that element 
+ 
+page = tocrawl.pop()
+
+if we do "tocrawl.pop()" that will get us the element in the two crawl list, removes that element from the list to crawl and assign that to the variable page. One important point to note because we are getting the last element first what we are implementing is called "Depth - first search" and that means as we crawl webpage 
+
+If we had three links on the first page, what's gonna happen is we are going to follow that last link, we are gonna add those links that we find there to the page, before getting to the other links in "to crawl" what we are gonna do is follow the just previous links lists last url and thats gonna be the last link we are gonna addd and we are gonna follow that and get to that page and we are gonna follow that link on that page. And this is called Dept - first search. We don't get to look at the second link on the first page untill we can follow all the links of the last link that we found on the initial page. 
+
+If our goal was to good carpuse of web quickly. Doing "Depth- First search would not be the best way to do" 
