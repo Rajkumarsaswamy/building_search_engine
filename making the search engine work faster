@@ -1,0 +1,30 @@
+So what do we need to do to make look up faster? 
+So first lets think about why was it slow. The reason it was slow because we were doing this for loop, we were looking all the elements in the order and checking if they match the key words. And we have do this going through entire index, for an entry for a keyword that's not in the index. To determine that its not there, we have to go through the whole index. this is not the way we use indexes in real life. If you were looking for a word in the index of the book, you don't have to look through every single entry, to see if that word exists. You can jump around, and the reason you can jump around because entries in the index are sorted in alphabetical order. So you know were that entry would belong, you just need to find the right place to see if its there. 
+
+We can do that with our index. Instead of keeping the index in arbitaory order, if we keep in the index in sorted order, then we can find the place where that entry belongs, and look for it. Sorting is a very interesting problem, we are gonna do that in a different way in doing that, what we are gonna do is find a way to find where the entry should be that doesn't require keeping all the entry sorted. 
+
+What we want is something that will allow us, given a keyword, we are gonna have a function that tells us where it belongs we are gonna call that a hash! That tells us where in the entry to look. So, instead of having to look through the whole index. The hash function will tell us where that entry belongs. So, what we need for this is some function that is gonna take a key word map it to a number and that number is the position in the index where that keyword belongs. 
+
+We can do this in lot of different ways. One simple thing would be to think, well we know the alphabet, more a like index in the book will have. Based on the first letter, We will put all the entries in the first letter in the place. 
+
+Example for a keyword that starts with U the "hash" would tell us, place where all the keywords that start with U are, and then we only have to look through the word that start with u. So this would allow us to look up much more quickly than looking through whole index.
+
+This isn't still quite the best way to do. Because if we made our places based on letter well then we have a problem if we have two with the same letter, were we would expect to have more than one words start with same name. Instead of having an element in each position, we are gonna have a list of elements that will start with letter u. 
+
+When we look for letter Udacity we look at the entry for word u and if the word that is there, is matched, then we know udacity is there. there are lots of problem with this, first problem is there might be many word that starts with U. So we can't just have one entry here. What we need to have is a list of entry. We often call this a bucket. We need a bucket of entry that start with U. That would be in this position. So instead of having just one entry, like the old structure of index, now we are gonna have a list of entries, in each element of index, will now be a bucket. which is list of entries that are in the right positon. 
+
+This is getting better, now for each lookup instead of having to look through all the words in the index, we just need to find the letter that starts with the right letter. And that's got bucket of all the words, that start with that letter. And, we jsut need to look through that bucket. This works ok. But, this isn't really scaled really very well. And at best if we have 10 million words, now instead of going through ten million entries to go through. We need to go through say tell million divided by 26. If we have twenty six letters. Its not making things much faster, but its just making best 26 times the letter. that assumes all the buckets are in same size.  
+
+Certainly if we make the bucket based on the first letter, thats not going to be the same size. If the words are typical english words, we will have many words that starts with 's', than 'e' or 'u'.
+
+So we have to fix these two of these problem? 
+
+We wanna be able to have more buckets, we are not gonna just the first letter, we are gonna use some function on the whole word that tells us where it belongs. And we are gonna try that function distribute the words fairly well. 
+
+The structure that has been described is called hash table. It is so useful that its built into python. There is a python type called dictionary, which provides this functionality. 
+
+If a hash function outputs a unique number for every keyword, well the range for hash function would be very large and we would need huge amount of memory to store that variable. And, hence number of buckets will be same for number of keywords. thats not gonna work very well. 
+
+What we want is number of buckets, to be b that means the ouput of hash function should be in the range between 0 and b-1 and that will find the element of list that corresponds to that bucket. So we want the second property. 
+
+Third and fourth property say that we want number of keywords in each bucket to be approximately the same. So, if there are are k keywords we are fitting them into b buckets. If we want buckets to be approximately the same size. then eacch bucket should approximately have k divided by b.  
