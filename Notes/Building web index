@@ -1,0 +1,63 @@
+
+Next step :
+
+- content from these pages
+- build an index to respond queries 
+
+Pass in a keyword and get list of pages that contain that keyword 
+
+inorder to respond to queries quickly we must be able to have a data structure were we can look up a keyword and quickly find the keyword that matches that keyword without the need to scan all the pages. To build this we are gonna use a structure called inverted index or often just a index. That allows us to have a mapping between a keyword and pages that contain that keyword. The index is same index as the index in the book. 
+
+Procedure that adds new entry to the index 
+
+Add to index takes three input. First is the index. In index each element is a list, and each of the element list is a keyword followed by a list of urls where that keyword appears 
+- second input is a keyword, thats just a string. that's the word that we want to add to the index. 
+- third input is the url, which is a string that encodes the url where that keyword appears. 
+If the keyword is in the index we don't want to create a new entry in the index. we want the keyword appear only once. so what we wanted to do instead is add that url, to the list of url that associated with url. 
+
+Suppose we start with initiallsing a empty list in the index. 
+
+index = []
+add_to_index(index, 'udacity', 'url where that keyword appears')
+
+here is what we do, first we create a index, we intialising as an empty list 
+
+Building web index: 
+
+We are going to use split operation to do this. We can certainly build a way to seperate all the words ourself using the operator we have already seen. We can use indexing to go through the letter string and identify characters that we think of seperating words. Python has a built in operation that exactly does what we need. Its called split.
+
+Split operator:
+
+We invoke split on a string. syntax: <string>.split()
+						|_ > [<word>,<word>,...]
+
+It outputs a list of words in the string 
+
+Split does a pretty good job in dividing the string into list of words for our web index, but its not perfect. Later we can divide web page into its component of words in a way it would be accurate. 
+
+
+Tripple quotes """
+
+We can use them to divide them over into multiple lines. 
+
+add_page_to_index:
+
+- index
+- url (string) - it is location of page where the content came from 
+- content (string) - that's entire content of page of that entire location
+where the url is 
+
+So the result should be updating the index to include all the word occurances found in the page content by adding the url to the words associated url list.
+
+In the crawl_web: instead of finding all the urls, we are building up the index, looking at actual content of pages and adding it to our index.   
+
+Lets introduce a new variable and store the content of url in that variable. 
+
+get_page is lot more expensive because it requires web request  to get content. So it makes lot more sense to store in a variable. 
+
+
+We are done with our web crawler: 
+
+From a seed, we can find set of pages. Following that seed, following all the links that we find on the pages that we find starting from that seed, for each page, we're going to add the content that we find on the page to an index, and we're going to return that index. 
+e 
+
