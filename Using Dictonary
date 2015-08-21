@@ -1,0 +1,21 @@
+Dictonary.
+
+Entries inside a dictionary are key value pairs, 
+
+{'hydrogen':1,'helium':2} here i have created dictionary with two element and each element key is  a string, and the value associated with that element is the number. The keys inside the dictionary can be any immutable value, so they don't have to strings, they can numbers, and they can be other things, the values can be any value. 
+
+
+So what a dictionary is, it's a set of key value pairs, and the property the dictionary will give us is like the hash table. 
+
+set of <key, value> pair. 
+
+we can look up a key and get the value associated with the key. A dictionary is mutable. So after we create a dictioanry, we can add new key value pairs to it. We can the values associated with the key. 
+
+The syntax is p[k] where k is the key value associated with k in d.
+
+so d[k] = v. Thats equivalent to update the value associated with k with value v. 
+
+
+Great thing about hash table is we don't have to loop through anything, We know exactly where it is from the hashtable. With dictionary, the built-in "in" operation, gives us that. So instead of looping we right way check if the keyword is in the index 
+
+Problem of analysing cost of algorithms, and designing data structures that are more efficient, is one of core ideas in all of computer science. Including algorithm and theory and computation course.  
